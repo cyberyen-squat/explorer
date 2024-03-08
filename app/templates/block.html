@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% block title %}Block{{ super() }}{% endblock %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block additional_text %}<a href="/block/{{ block_hash }}">Cyberyen</a> {{ block_height }}{% endblock %}
+
+{% block the_form %}
+{% endblock %}
+
+{% block start_body %}
+{{ super() }}
+{% endblock %}
+
+{% block additional_body %}
+<div class="break-words bg-base-300 shadow sm:rounded-lg w-10/12 md:w-8/12 mx-auto">
+  <div class="grid grid-cols-12">
+    <div class="px-2 lg:py-5 sm:p-0 col-span-12 lg:mx-0 lg:col-span-6">
+      <dl class="border-accent/50">
+	    <p>
+		Hash: {{ block_hash }}<br />
+		{% if previous_block_hash is not none %}
+		Previous Block: <a href="/block/{{ previous_block_hash }}">{{ previous_block_hash }}</a><br />
+		{% endif %}
+		{% if next_block_hash is not none %}
+		Next Block: <a href="/block/{{ next_block_hash }}">{{ next_block_hash }}</a><br />
+		{% endif %}
+		Height: {{ block_height }}<br />
+		Version: {{ version }}<br />
+		Transaction Merkle Root: {{ merkle_root }}<br />
+		Time: {{ time }} ({{ formatted_time }})<br />
+		Difficulty: {{ difficulty }} (Bits: {{ bits }})<br />
+		Cumulative Difficulty: {{ cumulative_difficulty }}<br />
+		Nonce: {{ nonce }}<br />
+		Transactions: {{ the_transactions | length }}<br />
+		Value out: {{ value_out }}<br />
+		Transaction Fees: {{ formatted_transaction_fees }}<br />
+	    </p>
+		  </dl>
+    </div>
+  </div>
+</div>
+<div class="bg-base-300 p-4 shadow sm:rounded-lg w-10/12 md:w-8/12 mx-auto mt-3">
+  <div class="grid grid-cols-12">
+    <div class="col-span-12 md:col-span-6 pl-2">
+      <p class="text-md font-semibold pl-6">Transactions</p>
+    </div>
+  </div>
+</div>
+<div class="break-words bg-base-300 shadow w-10/12 md:w-8/12 mx-auto mt-3 pb-3 pb-3 border-b border-transparent hover:border-accent/25">
+  <div class="grid grid-cols-12">
+    {% for each in the_transactions %}
+    <div class="border-t border-accent/50 px-4 sm:p-0 col-span-12">
+      <div class="grid grid-cols-12 pt-3">
+	<div class="col-span-10 md:col-span-8 px-4"><a href="/tx/{{ each.txid }}">{{ each.txid }}</a></div>
+      </div>
+    </div>
+    <div class="px-4 py-2 md:py-1 sm:p-0 col-span-12">
+      {% for txout in the_txout %}
+      {% if each.txid == txout.txid %}
+      <div class="grid grid-cols-12 text-sm py-1">
+	<div class="hidden lg:block lg:col-span-1 mx-auto text-base-content/75">
+	  Output
+	</div>
+	<div class="col-span-6 pl-3 lg:col-span-7 text-left pr-3">
+	  {% if txout.address == 'nulldata' %}<a href="https://learnmeabitcoin.com/technical/nulldata">NULL DATA</a>{% else %}<a href="/address/{{ txout.address }}">{{ txout.address }}</a>{% endif %}
+	</div>
+	<div class="col-span-4 lg:col-span-2 text-right value-or-price pr-3">
+		<a class="value-or-price">{{ format_eight_zeroes(txout.value) }}</a>
+	</div>
+	<div class="col-span-2 lg:col-span-1 text-left value-or-price">
+		<a class="text-base-content/75">CY</a>
+	</div>
+      </div>
+      {% endif %}
+      {% endfor %}
+			{% for txin in the_txin %}
+      {% if each.txid == txin.txid %}
+      <div class="grid grid-cols-12 text-sm py-1">
+	<div class="hidden lg:block lg:col-span-1 mx-auto text-base-content/75">
+	  Input
+	</div>
+	<div class="col-span-6 pl-3 lg:col-span-7 text-left pr-3">
+	  {% if txin.address == 'nulldata' %}<a href="https://learnmeabitcoin.com/technical/nulldata">NULL DATA</a>{% else %}<a href="/address/{{ txin.address }}">{{ txin.address }}</a>{% endif %}
+	</div>
+	<div class="col-span-4 lg:col-span-2 text-right value-or-price pr-3">
+	  <a class="value-or-price">{{ format_eight_zeroes(txin.value) }}</a>
+	</div>
+	<div class="col-span-2 lg:col-span-1 text-center hidden lg:table-cell value-or-price">
+	  <a class="text-base-content/75">CY</a>
+	</div>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+    {{ super() }}
+    <!-- Include any footer content here -->
+    <div style=" height: 25vh"></div>
+{% endblock %}

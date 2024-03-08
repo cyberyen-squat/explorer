@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% block head %}
+  <head>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/apple.png') }}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="description" content="Cyberyen block explorer." />
+    <meta name="keywords" content="" />
+    <meta name="author" content="See https://github.com/cyberyen-squat/explorer" />
+    <meta property="og:title" content="Cyberyen Explorer" />
+    <meta property="og:description" content="Cyberyen block explorer." />
+    <meta property="og:url" content="{{ request.base_url }}" />
+    <meta property="og:image" content="{{ url_for('static', filename='images/512.png', _external=True) }}" />
+    <meta property="og:type" content="website" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3/build/web/hack.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator/umd/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <title>{% block title %}{% endblock %} | {% if config.PROGRAM_NAME is not none %}{{ config.PROGRAM_NAME }}{% else %}Explorer{% endif %}</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+  </head>
+  {% endblock %}
+  {% block start_body %}
+  <body class="body h-5/6 mb-12 min-h-screen font-sans tabular-nums antialiased">
+    <main class="mx-auto">
+      <div class="bg-base-100">
+	<div class="container">
+	  <a href="/"><img src="{{ url_for('static', filename='images/cyberyen.svg') }}" alt="Cyberyen logo" width="52px" height="52px"/></a>
+	  <a href="/">The Cyberyen Block Explorer</a>
+	</div>
+	{% endblock %}
+
+	{% block the_form %}
+	<div class="container">
+	  <div class="search-container">
+	    <form method="post">
+	      {{ form.csrf_token }}
+	      <input type="text" name="search" id="search" class="search-input">
+	      <button type="submit" class="search-button">Search</button>
+	    </form>
+
+	    {% if search_validated is defined %}
+	    {% if not search_validated %}
+	    <p><b>Could not find an address, block, transaction, or anything related to this search.</b></p>
+	    {% endif %}
+	    {% endif %}
+
+	    {% if input_too_short is defined %}
+	    {% if input_too_short %}
+	    <p><b>Your input wasn't 6 characters or more.</b></p>
+	    {% endif %}
+	    {% endif %}
+	  </div>
+	</div>
+
+	{% endblock %}
+
+	{% block additional_body %}{% endblock %}
+      </div>
+    </main>
+
+    {% block footer %}
+    <div class="footer">
+      <b></b>
+    </div>
+    {% endblock %}
+  </body>
+</html>

@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title %}Address {{ this_address }}{{ super() }}{% endblock %}
+
+{% block head %}
+{{ super() }}
+<script src="https://cdn.jsdelivr.net/npm/qrcode@latest"></script>
+{% endblock %}
+
+{% block additional_text %}Address {{ this_address }}{% endblock %}
+
+{% block the_form %}{% endblock %}
+
+{% block start_body %}
+{{ super() }}
+{% endblock %}
+
+{% block additional_body %}
+<div class="break-words bg-base-300 shadow sm:rounded-lg w-10/12 md:w-8/12 mx-auto">
+  <div class="grid grid-cols-12">
+    <div class="px-2 lg:py-5 sm:p-0 col-span-12 lg:mx-0 lg:col-span-6">
+      <dl class="border-accent/50">
+	<p>
+	  Address: {{ this_address  }}<br />
+	  Balance: {{ format_eight_zeroes(total_balance) }}<br />
+	  Transactions in: {{ the_address_summary.transactions_in }}<br />
+	  Received: {{ total_received }}<br />
+	  Transactions out: {{ the_address_summary.transactions_out }}<br />
+	  Sent: {{ total_sent }}<br />
+	</p>
+      </dl>
+    </div>
+    <div class="px-2 lg:py-5 sm:p-0 col-span-12 lg:mx-0 lg:col-span-6 mx-auto my-auto">
+      <div class="my-auto mx-auto" id="qrcode">
+	<img class="border border-accent/50 p-2 mx-1 my-1 bg-white" src="{{ qrcode(this_address, box_size=5) | safe }}" alt="QR Code for {{ this_address }}" style="display: block; margin: auto;"> <!-- Generate QR code for this_address -->
+      </div>
+    </div>
+  </div>
+</div>
+<div class="bg-base-300 p-4 shadow sm:rounded-lg w-10/12 md:w-8/12 mx-auto mt-3">
+  <div class="grid grid-cols-12">
+    <div class="col-span-12 md:col-span-6 pl-2">
+      <p class="text-md font-semibold pl-6">Transactions</p>
+    </div>
+  </div>
+</div>
+<div class="break-words bg-base-300 shadow w-10/12 md:w-8/12 mx-auto mt-3 pb-3 pb-3 border-b border-transparent hover:border-accent/25">
+  <div class="grid grid-cols-12">
+    {% for each in address_info %}
+    <div class="border-t border-accent/50 px-4 sm:p-0 col-span-12">
+      <div class="grid grid-cols-12 py-3">
+	<div class="col-span-6 lg:col-span-8 px-4"><a href="/tx/{{ each.transaction }}">{{ each.transaction }}</a></div>
+	<div class="col-span-6 lg:col-span-4">
+	  <div class="grid grid-cols-12">
+	    <div class="text-base-content/100 text-sm text-right col-span-12 pr-4">
+	      {{ format_time(each.the_time) }}
+	    </div>
+	  </div>
+	</div>
+      </div>
+    </div>
+    <div class="px-4 py-2 md:py-1 sm:p-0 col-span-12">
+      <div class="grid grid-cols-12">
+	<div class="col-span-7 md:col-span-4 lg:col-span-3 text-sm text-right pr-3">
+	  <a class="value-or-price">
+	    {{ format_eight_zeroes(each.amount) }}
+	  </a>
+	</div>
+	<div class="col-span-4 md:col-span-2 lg:col-span-2 text-sm text-left pr-3">
+	  <a class="text-base-content/75 value-or-price">CY</a>
+	</div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+{{ super() }}
+<!-- Include any footer content here -->
+<div style=" height: 25vh"></div>
+{% endblock %}

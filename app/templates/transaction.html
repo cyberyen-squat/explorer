@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block title %}Transaction{{ super() }}{% endblock %}
+
+{% block head %}{{ super() }}{% endblock %}
+
+{% block additional_text %}Transaction {{ this_transaction[0:10] }}...{{ this_transaction[-4:] }}{% endblock %}
+
+{% block the_form %}{% endblock %}
+
+{% block start_body %}{{ super() }}{% endblock %}
+
+{% block additional_body %}
+<div class="break-words bg-base-300 shadow sm:rounded-lg w-10/12 md:w-8/12 mx-auto">
+  <div class="grid grid-cols-12">
+    <div class="px-2 lg:py-5 sm:p-0 col-span-12 lg:mx-0 lg:col-span-6">
+      <dl class="border-accent/50">
+	<p>
+	  Hash: {{ this_transaction }}<br />
+	  Appeared in <a href="/block/{{ block_height }}">{{ block_height }}</a> ({{ the_datetime }})<br />
+	  Number of inputs: {% if inputs|length >= 0 and coinbase is not none %}{{ inputs|length + 1 }}{% elif inputs|length >= 1 and coinbase is none %}{{ inputs|length }}{% endif %} (<a href="#inputs">Jump to inputs</a>)<br />
+	  Total in: {{ total_in }}<br />
+	  Number of outputs: {% if outputs|length >= 1 %}{{ outputs|length }}{% endif %} (<a href="#outputs">Jump to outputs</a>)<br />
+	  Total out: {{ total_out }}<br />
+	  Size: {{ size }} bytes<br />
+	  Fee: {{ fee }}<br />
+	  <a href="/api/rawtx/{{ this_transaction }}">Raw transaction</a>
+	</p>
+      </dl>
+    </div>
+  </div>
+</div>
+<div class="bg-base-300 shadow w-10/12 md:w-8/12 mt-3 pb-3 pt-3 mx-auto border-b border-accent">
+  <p class="text-md font-semibold pl-6" id="inputs">Inputs</p>
+</div>
+<div class="break-words bg-base-300 shadow w-10/12 md:w-8/12 mx-auto mt-3 pt-3 pb-3 border-b border-transparent hover:border-accent/25 text-sm">
+  {% for each in inputs %}
+  <div class="grid grid-cols-12 text-sm py-1">
+    <div class="col-span-1 md:col-span-1 font-medium text-base-content/75 text-left md:mx-auto md:text-right pr-3">
+      <a id="i{{ loop.index0 }}">{{ loop.index0 }}</a>
+    </div>
+    <div class="col-span-3 md:col-span-5 lg:col-span-6 text-left pr-3">
+      <a class="text-base-content/75 font-mono" href="/address/{{ each.address }}">{{ each.address }}</a>
+    </div>
+    <div class="col-span-4 md:col-span-3 lg:col-span-3 text-right value-or-price pr-3">
+      <a class="value-or-price">{{ format_eight_zeroes(each.value) }}</a>
+    </div>
+    <div class="col-span-3 md:col-span-2 lg:col-span-1 text-left value-or-price">
+      <a class="text-base-content/75">CY</a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+<div class="bg-base-300 shadow w-10/12 md:w-8/12 mt-3 pb-3 pt-3 mx-auto border-b border-accent">
+  <p class="text-md font-semibold pl-6" id="outputs">Outputs</p>
+</div>
+<div class="break-words bg-base-300 shadow w-10/12 md:w-8/12 mx-auto mt-3 pt-3 pb-3 border-b border-transparent hover:border-accent/25 text-sm">
+  {% for each in outputs %}
+  <div class="grid grid-cols-12 text-sm py-1">
+    <div class="col-span-1 md:col-span-1 font-medium text-base-content/75 text-left md:mx-auto md:text-right pr-3">
+      <a id="i{{ loop.index0 }}">{{ loop.index0 }}</a>
+    </div>
+    <div class="col-span-3 md:col-span-5 lg:col-span-6 text-left pr-3">
+      {% if each.address == 'nulldata' %}<a href="https://learnmeabitcoin.com/technical/nulldata">NULL DATA</a>{% else %}<a href="/address/{{ each.address }}">{{ each.address }}</a>{% endif %}
+    </div>
+    <div class="col-span-4 md:col-span-3 lg:col-span-3 text-right value-or-price pr-3">
+      <a class="value-or-price">{{ format_eight_zeroes(each.value) }}</a>
+    </div>
+    <div class="col-span-3 md:col-span-2 lg:col-span-1 text-left value-or-price">
+      <a class="text-base-content/75">CY</a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+<div class="bg-base-300 shadow w-10/12 md:w-8/12 mt-3 pb-3 pt-3 mx-auto border-b border-accent">
+  <p class="text-md font-semibold pl-6">Scripts</p>
+</div>
+<div class="break-words bg-base-300 shadow w-10/12 md:w-8/12 mx-auto mt-3 pt-3 pb-3 border-b border-transparent hover:border-accent/25 text-sm">
+  {% for each in inputs %}
+  <div class="grid grid-cols-12 text-sm py-1">
+    <div class="col-span-3 md:col-span-1 font-medium text-base-content/75 pl-2 text-left md:mx-auto">
+      Input
+    </div>
+    <div class="col-span-1 md:col-span-1 font-medium text-base-content/75 text-left md:mx-auto md:text-right pr-3">
+      <a id="i{{ loop.index0 }}">{{ loop.index0 }}</a>
+    </div>
+    <div class="col-span-12 md:col-span-10 text-left pr-4 pl-2 md:pl-0">
+      {{ each.scriptsig }}
+    </div>
+  </div>
+  {% endfor %}
+  {% for each in outputs %}
+  <div class="grid grid-cols-12 text-sm py-1">
+    <div class="col-span-3 md:col-span-1 font-medium text-base-content/75 pl-2 text-left md:mx-auto">
+      Output
+    </div>
+    <div class="col-span-1 md:col-span-1 font-medium text-base-content/75 text-left md:mx-auto md:text-right pr-3">
+      <a id="i{{ loop.index0 }}">{{ loop.index0 }}</a>
+    </div>
+    <div class="col-span-12 md:col-span-10 text-left pr-4 pl-2 md:pl-0">
+      {{ each.scriptpubkey }}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
+
+{% block footer %}
+{{ super() }}
+<!-- Include any footer content here -->
+<div style=" height: 25vh"></div>
+{% endblock %}

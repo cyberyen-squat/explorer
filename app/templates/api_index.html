@@ -1,0 +1,524 @@
+{% extends "base.html" %}
+{% block title %}API Documentation{{ super() }}{% endblock %}
+
+{% block head %}{{ super() }}{% endblock %}
+
+{% block additional_text %}JSON Public API{% endblock %}
+
+{% block the_form %}{% endblock %}
+
+{% block start_body %}{{ super() }}{% endblock %}
+
+{% block additional_body %}
+
+
+<div class="break-words bg-base-300 shadow sm:rounded-lg w-10/12 md:w-8/12 mx-auto">
+  <div class="grid grid-cols-12">
+    <div class="px-2 lg:py-5 sm:p-0 col-span-12 lg:mx-0 lg:col-span-6">
+      <dl class="border-accent/50">
+	<ul>
+	  <p class="text-md font-bold capitalize">Supported APIs:</p>
+	  <p class="text-md font-semibold capitalize">Address API</p>
+	  <li>(<a href="#g1-1">Get balance</a>)</li>
+	  <li>(<a href="#g1-2">Get amount received</a>)</li>
+	  <li>(<a href="#g1-3">Get amount sent</a>)</li>
+	  <li>(<a href="#g1-4">Get valid address</a>)</li>
+	  <p class="text-md font-semibold capitalize">Transaction API</p>
+	  <li>(<a href="#g2-1">Get transaction</a>)</li>
+	  <p class="text-md font-semibold capitalize">Block API</p>
+	  <li>(<a href="#g3-1">Get block</a>)</li>
+	  <li>(<a href="#g3-2">Get best block hash</a>)</li>
+	  <li>(<a href="#g3-3">Get block count</a>)</li>
+	  <p class="text-md font-semibold capitalize">Blockchain API</p>
+	  <li>(<a href="#g4-2">Get summary</a>)</li>
+	  <li>(<a href="#g4-3">Get total transactions</a>)</li>
+	  <li>(<a href="#g4-4">Get total confirmations</a>)</li>
+	  <li>(<a href="#g4-5">Get difficulty</a>)</li>
+	</ul>
+      </dl>
+    </div>
+  </div>
+</div>
+
+<div class="bg-base-300 shadow w-10/12 md:w-8/12 mt-3 pb-3 pt-3 mx-auto border-b border-accent">
+  <p class="text-md font-medium pl-6 capitalize" id="g1-1">Get balance of address</p>
+</div>
+<div class="bg-base-300 mx-auto text-sm font-medium shadow sm:rounded-lg w-10/12 md:w-8/12 mt-1 p-2 text-base-content/75">
+  <div class="p-2 mt-2">
+    <p class="mt-3 text-md font-semibold text-base-content/50">ENDPOINT <span class="badge badge-sm badge-accent ml-4">GET</span></p>
+    <pre><code class="language-curl hljs">/api/addressbalance/{address}</code></pre>
+  </div>
+  <div class="p-2">
+    <p class="mt-3 text-md font-semibold text-base-content/50">DESCRIPTION</p>
+    <p class="mt-3">
+      Returns balance for a given address.
+    </p>
+    <div class="mt-3 break-words">
+      <a href="https://cyberyen.work/api/addressbalance/{address}">https://cyberyen.work/api/addressbalance/{address}</a>
+    </div>
+  </div>
+  <div class="p-2 mt-3">
+    <p class="text-md font-semibold text-base-content/50">Response on success</p>
+    <pre>
+      <code class="language-json hljs">{"error": "ok", "message": "0.00000000"}</code>
+    </pre>
+  </div>
+  <div class="p-2 mt-3">
+    <p class="text-md font-semibold text-base-content/50">Response on failure</p>
+    <pre>
+      <code class="language-json hljs">{"error": "404", "message": "This address is invalid"}</code>
+    </pre>
+  </div>
+</div>
+
+<div class="bg-base-300 shadow w-10/12 md:w-8/12 mt-3 pb-3 pt-3 mx-auto border-b border-accent">
+  <p class="text-md font-medium pl-6 capitalize" id="g1-2">Get received amount of address</p>
+</div>
+<div class="bg-base-300 mx-auto text-sm font-medium shadow sm:rounded-lg w-10/12 md:w-8/12 mt-1 p-2 text-base-content/75">
+  <div class="p-2 mt-2">
+    <p class="mt-3 text-md font-semibold text-base-content/50">ENDPOINT <span class="badge badge-sm badge-accent ml-4">GET</span></p>
+    <pre>
+      <code class="language-curl hljs">/api/receivedbyaddress/{address}</code>
+    </pre>
+  </div>
+  <div class="p-2">
+    <p class="mt-3 text-md font-semibold text-base-content/50">DESCRIPTION</p>
+    <p class="mt-3">
+      Returns total amount of confirmed received coins of a given address.
+    </p>
+    <div class="mt-3 break-words">
+      <a href="https://cyberyen.work/api/receivedbyaddress/{address}">https://cyberyen.work/api/receivedbyaddress/{address}</a>
+    </div>
+  </div>
+  <div class="p-2 mt-3">
+    <p class="text-md font-semibold text-base-content/50">Response on success</p>
+    <pre>
+      <code class="language-json hljs">{"error": "ok", "message": "0.00000000"}</code>
+    </pre>
+  </div>
+  <div class="p-2 mt-3">
+    <p class="text-md font-semibold text-base-content/50">Response on failure</p>
+    <pre>
+      <code class="language-json hljs">{"error": "404", "message": "This address is invalid"}</code>
+    </pre>
+  </div>
+</div>
+
+<div class="bg-base-300 shadow w-10/12 md:w-8/12 mt-3 pb-3 pt-3 mx-auto border-b border-accent">
+  <p class="text-md font-medium pl-6 capitalize" id="g1-3">Get sent amount of address</p>
+</div>
+<div class="bg-base-300 mx-auto text-sm font-medium shadow sm:rounded-lg w-10/12 md:w-8/12 mt-1 p-2 text-base-content/75">
+  <div class="p-2 mt-2">
+    <p class="mt-3 text-md font-semibold text-base-content/50">ENDPOINT <span class="badge badge-sm badge-accent ml-4">GET</span></p>
+    <pre>
+      <code class="language-curl hljs">/api/sentbyaddress/{address}</code>
+    </pre>
+  </div>
+  <div class="p-2">
+    <p class="mt-3 text-md font-semibold text-base-content/50">DESCRIPTION</p>
+    <p class="mt-3">
+      Returns total amount of confirmed sent coins of a given address.
+    </p>
+    <div class="mt-3 break-words">
+      <a href="https://cyberyen.work/api/sentbyaddress/{address}">https://cyberyen.work/api/sentbyaddress/{address}</a>
+    </div>
+  </div>
+  <div class="p-2 mt-3">
+    <p class="text-md font-semibold text-base-content/50">Response on success</p>
+    <pre>
+      <code class="language-json hljs">{"error": "ok", "message": "0.00000000"}</code>
+    </pre>
+  </div>
+  <div class="p-2 mt-3">
+    <p class="text-md font-semibold text-base-content/50">Response on failure</p>
+    <pre>
+      <code class="language-json hljs">{"error": "404", "message": "This address is invalid"}</code>
+    </pre>
+  </div>
+</div>
+
+<div class="bg-base-300 shadow w-10/12 md:w-8/12 mt-3 pb-3 pt-3 mx-auto border-b border-accent">
+  <p class="text-md font-medium pl-6 capitalize" id="g1-4">Get valid for an address</p>
+</div>
+<div class="bg-base-300 mx-auto text-sm font-medium shadow sm:rounded-lg w-10/12 md:w-8/12 mt-1 p-2 text-base-content/75">
+  <div class="p-2 mt-2">
+    <p class="mt-3 text-md font-semibold text-base-content/50">ENDPOINT <span class="badge badge-sm badge-accent ml-4">GET</span></p>
+    <pre>
+      <code class="language-curl hljs">/api/validateaddress/{address}</code>
+    </pre>
+  </div>
+  <div class="p-2">
+    <p class="mt-3 text-md font-semibold text-base-content/50">DESCRIPTION</p>
+    <p class="mt-3">
+      Checks an address for validity.
+    </p>
+    <div class="mt-3 break-words">
+      <a href="https://cyberyen.work/api/validateaddress/{address}">https://cyberyen.work/api/validateaddress/{address}</a>
+    </div>
+  </div>
+  <div class="p-2 mt-3">
+    <p class="text-md font-semibold text-base-content/50">Response on success</p>
+    <pre>
+      <code class="language-json hljs">{"error": "ok", "message": "valid"}</code>
+    </pre>
+  </div>
+  <div class="p-2 mt-3">
+    <p class="text-md font-semibold text-base-content/50">Response on failure</p>
+    <pre>
+      <code class="language-json hljs">{"error": "this string cannot be verified as an address", "message": "invalid"}</code>
+    </pre>
+  </div>
+</div>
+
+<div class="bg-base-300 shadow w-10/12 md:w-8/12 mt-3 pb-3 pt-3 mx-auto border-b border-accent">
+  <p class="text-md font-medium pl-6 capitalize" id="g2-1">Get transaction</p>
+</div>
+<div class="bg-base-300 mx-auto text-sm font-medium shadow sm:rounded-lg w-10/12 md:w-8/12 mt-1 p-2 text-base-content/75">
+  <div class="p-2 mt-2">
+    <p class="mt-3 text-md font-semibold text-base-content/50">ENDPOINT <span class="badge badge-sm badge-accent ml-4">GET</span></p>
+    <pre>
+      <code class="language-curl hljs">/api/rawtx/{transaction_hash}</code>
+    </pre>
+  </div>
+  <div class="p-2">
+    <p class="mt-3 text-md font-semibold text-base-content/50">DESCRIPTION</p>
+    <p class="mt-3">
+      Returns transaction by transaction hash.
+    </p>
+    <div class="mt-3 break-words">
+      <a href="https://cyberyen.work/api/rawtx/{transaction_hash}">https://cyberyen.work/api/rawtx/{transaction_hash}</a>
+    </div>
+  </div>
+  <div class="p-2 mt-3">
+    <p class="text-md font-semibold text-base-content/50">Response on success</p>
+    <pre>
+      <code class="language-json hljs">
+    {
+	"blockhash": "",
+	"blocktime": ,
+	"confirmations": ,
+	"hash": "",
+	"hex": "",
+	"locktime": ,
+	"size": ,
+	"time": ,
+	"txid": "",
+	"version": ,
+	"vin": [
+	    {
+		"coinbase": "",
+		"ismweb": false,
+		"sequence": 0,
+		"txinwitness": [""]
+	    }
+	],
+	"vout": [
+	    {
+		"ismweb": false,
+		"n": 0,
+		"scriptPubKey": {
+		    "addresses": [""],
+		    "asm": "",
+		    "hex": "",
+		    "reqSigs": 1,
+		    "type": "pubkeyhash"
+		},
+		"value": ""
+	    },
+	    {
+		"ismweb": false,
+		"n": 1,
+		"scriptPubKey": {
+		    "asm": "OP_RETURN ",
+		    "hex": "",
+		    "type": "nulldata"
+		},
+		"value": ""
+	    }
+	],
+	"vsize": ,
+	"weight":
+    }
+      </code>
+    </pre>
+  </div>
+  <div class="p-2 mt-3">
+    <p class="text-md font-semibold text-base-content/50">Response on failure</p>
+    <pre>
+      <code class="language-json hljs">{"error": "invalid", "message": "This transaction is invalid"}</code>
+    </pre>
+  </div>
+</div>
+
+<div class="bg-base-300 shadow w-10/12 md:w-8/12 mt-3 pb-3 pt-3 mx-auto border-b border-accent">
+  <p class="text-md font-medium pl-6 capitalize" id="g3-1">Get block</p>
+</div>
+<div class="bg-base-300 mx-auto text-sm font-medium shadow sm:rounded-lg w-10/12 md:w-8/12 mt-1 p-2 text-base-content/75">
+  <div class="p-2 mt-2">
+    <p class="mt-3 text-md font-semibold text-base-content/50">ENDPOINT <span class="badge badge-sm badge-accent ml-4">GET</span></p>
+    <pre>
+      <code class="language-curl hljs">/api/block/{block_hash}</code>
+    </pre>
+  </div>
+  <div class="p-2">
+    <p class="mt-3 text-md font-semibold text-base-content/50">DESCRIPTION</p>
+    <p class="mt-3">
+      Returns block information by block hash.
+    </p>
+    <div class="mt-3 break-words">
+      <a href="https://cyberyen.work/api/block/{block_hash}">https://cyberyen.work/api/block/{block_hash}</a>
+    </div>
+  </div>
+  <div class="p-2 mt-3">
+    <p class="text-md font-semibold text-base-content/50">Response on success</p>
+    <pre>
+      <code class="language-json hljs">
+    {
+	"bits": "",
+	"chainwork": "",
+	"confirmations": ,
+	"difficulty": "",
+	"hash": "",
+	"height": ,
+	"mediantime": ,
+	"merkleroot": "",
+	"mweb":{
+	    "hash": "",
+	    "height": ,
+	    "inputs": [],
+	    "kernel_offset": "",
+	    "kernel_root": "",
+	    "kernels": [],
+	    "leaf_root": "",
+	    "num_kernels": ,
+	    "num_txos": ,
+	    "output_root": "",
+	    "outputs": [],
+	    "stealth_offset": ""
+      },
+	"nTx": ,
+	"nonce": ,
+	"previousblockhash": "",
+	"size": ,
+	"strippedsize": ,
+	"time": ,
+	"tx": ["", ""],
+	"version": ,
+	"versionHex": "",
+	"weight":
+    }
+      </code>
+    </pre>
+  </div>
+  <div class="p-2 mt-3">
+    <p class="text-md font-semibold text-base-content/50">Response on failure</p>
+    <pre>
+      <code class="language-json hljs">{"error": "invalid", "message": "This transaction is invalid"}</code>
+    </pre>
+  </div>
+</div>
+
+<div class="bg-base-300 shadow w-10/12 md:w-8/12 mt-3 pb-3 pt-3 mx-auto border-b border-accent">
+  <p class="text-md font-medium pl-6 capitalize" id="g3-2">Get best block hash</p>
+</div>
+<div class="bg-base-300 mx-auto text-sm font-medium shadow sm:rounded-lg w-10/12 md:w-8/12 mt-1 p-2 text-base-content/75">
+  <div class="p-2 mt-2">
+    <p class="mt-3 text-md font-semibold text-base-content/50">ENDPOINT <span class="badge badge-sm badge-accent ml-4">GET</span></p>
+    <pre>
+      <code class="language-curl hljs">/api/block/getbestblockhash</code>
+    </pre>
+  </div>
+  <div class="p-2">
+    <p class="mt-3 text-md font-semibold text-base-content/50">DESCRIPTION</p>
+    <p class="mt-3">
+      Returns the hash of the best (tip) block in the most-work fully-validated chain.
+    </p>
+    <div class="mt-3 break-words">
+      <a href="https://cyberyen.work/api/block/getbestblockhash">https://cyberyen.work/api/block/getbestblockhash</a>
+    </div>
+  </div>
+  <div class="p-2 mt-3">
+    <p class="text-md font-semibold text-base-content/50">Response on success</p>
+    <pre>
+      <code class="language-json hljs">"block_hash"</code>
+    </pre>
+  </div>
+  <div class="p-2 mt-3">
+    <p class="text-md font-semibold text-base-content/50">Response on failure</p>
+    <pre>
+      <code class="language-json hljs">{"error": "404", "message": "There was a JSON error. Try again later"}</code>
+    </pre>
+  </div>
+</div>
+
+<div class="bg-base-300 shadow w-10/12 md:w-8/12 mt-3 pb-3 pt-3 mx-auto border-b border-accent">
+  <p class="text-md font-medium pl-6 capitalize" id="g3-3">Get block count</p>
+</div>
+<div class="bg-base-300 mx-auto text-sm font-medium shadow sm:rounded-lg w-10/12 md:w-8/12 mt-1 p-2 text-base-content/75">
+  <div class="p-2 mt-2">
+    <p class="mt-3 text-md font-semibold text-base-content/50">ENDPOINT <span class="badge badge-sm badge-accent ml-4">GET</span></p>
+    <pre>
+      <code class="language-curl hljs">/api/block/getblockcount</code>
+    </pre>
+  </div>
+  <div class="p-2">
+    <p class="mt-3 text-md font-semibold text-base-content/50">DESCRIPTION</p>
+    <p class="mt-3">
+      Returns the height of the most-work fully-validated chain.
+    </p>
+    <div class="mt-3 break-words">
+      <a href="https://cyberyen.work/api/block/getblockcount">https://cyberyen.work/api/block/getblockcount</a>
+    </div>
+  </div>
+  <div class="p-2 mt-3">
+    <p class="text-md font-semibold text-base-content/50">Response on success</p>
+    <pre>
+      <code class="language-json hljs">{"error": "ok", "message": "n"}</code>
+    </pre>
+  </div>
+  <div class="p-2 mt-3">
+    <p class="text-md font-semibold text-base-content/50">Response on failure</p>
+    <pre>
+      <code class="language-json hljs">{"error": "404", "message": "There was a JSON error. Try again later"}</code>
+    </pre>
+  </div>
+</div>
+
+<div class="bg-base-300 shadow w-10/12 md:w-8/12 mt-3 pb-3 pt-3 mx-auto border-b border-accent">
+  <p class="text-md font-medium pl-6 capitalize" id="g4-2">Get total coins</p>
+</div>
+<div class="bg-base-300 mx-auto text-sm font-medium shadow sm:rounded-lg w-10/12 md:w-8/12 mt-1 p-2 text-base-content/75">
+  <div class="p-2 mt-2">
+    <p class="mt-3 text-md font-semibold text-base-content/50">ENDPOINT <span class="badge badge-sm badge-accent ml-4">GET</span></p>
+    <pre>
+      <code class="language-curl hljs">/api/getsummary</code>
+    </pre>
+  </div>
+  <div class="p-2">
+    <p class="mt-3 text-md font-semibold text-base-content/50">DESCRIPTION</p>
+    <p class="mt-3">
+      Amount of all coins on the network.
+    </p>
+    <div class="mt-3 break-words">
+      <a href="https://cyberyen.work/api/getsummary">https://cyberyen.work/api/getsummary</a>
+    </div>
+  </div>
+  <div class="p-2 mt-3">
+    <p class="text-md font-semibold text-base-content/50">Response on success</p>
+    <pre>
+      <code class="language-json hljs">{"error": "ok", "message": "n"}</code>
+    </pre>
+  </div>
+  <div class="p-2 mt-3">
+    <p class="text-md font-semibold text-base-content/50">Response on failure</p>
+    <pre>
+      <code class="language-json hljs">{"error": "404", "message": "There was a JSON error. Try again later"}</code>
+    </pre>
+  </div>
+</div>
+
+<div class="bg-base-300 shadow w-10/12 md:w-8/12 mt-3 pb-3 pt-3 mx-auto border-b border-accent">
+  <p class="text-md font-medium pl-6 capitalize" id="g4-3">Get total transactions</p>
+</div>
+<div class="bg-base-300 mx-auto text-sm font-medium shadow sm:rounded-lg w-10/12 md:w-8/12 mt-1 p-2 text-base-content/75">
+  <div class="p-2 mt-2">
+    <p class="mt-3 text-md font-semibold text-base-content/50">ENDPOINT <span class="badge badge-sm badge-accent ml-4">GET</span></p>
+    <pre>
+      <code class="language-curl hljs">/api/totaltransactions</code>
+    </pre>
+  </div>
+  <div class="p-2">
+    <p class="mt-3 text-md font-semibold text-base-content/50">DESCRIPTION</p>
+    <p class="mt-3">
+      Total number of all transactions.
+    </p>
+    <div class="mt-3 break-words">
+      <a href="https://cyberyen.work/api/totaltransactions">https://cyberyen.work/api/totaltransactions</a>
+    </div>
+  </div>
+  <div class="p-2 mt-3">
+    <p class="text-md font-semibold text-base-content/50">Response on success</p>
+    <pre>
+      <code class="language-json hljs">{"error": "ok", "message": "n"}</code>
+    </pre>
+  </div>
+  <div class="p-2 mt-3">
+    <p class="text-md font-semibold text-base-content/50">Response on failure</p>
+    <pre>
+      <code class="language-json hljs">{"error": "404", "message": "There was a JSON error. Try again later"}</code>
+    </pre>
+  </div>
+</div>
+
+<div class="bg-base-300 shadow w-10/12 md:w-8/12 mt-3 pb-3 pt-3 mx-auto border-b border-accent">
+  <p class="text-md font-medium pl-6 capitalize" id="g4-4">Get total block confirmations</p>
+</div>
+<div class="bg-base-300 mx-auto text-sm font-medium shadow sm:rounded-lg w-10/12 md:w-8/12 mt-1 p-2 text-base-content/75">
+  <div class="p-2 mt-2">
+    <p class="mt-3 text-md font-semibold text-base-content/50">ENDPOINT <span class="badge badge-sm badge-accent ml-4">GET</span></p>
+    <pre>
+      <code class="language-curl hljs">/api/confirmations/{block_height}</code>
+    </pre>
+  </div>
+  <div class="p-2">
+    <p class="mt-3 text-md font-semibold text-base-content/50">DESCRIPTION</p>
+    <p class="mt-3">
+      Total confirmations for the block hash/block height.
+    </p>
+    <div class="mt-3 break-words">
+      <a href="https://cyberyen.work/api/confirmations/{block_height}">https://cyberyen.work/api/confirmations/{block_height}</a>
+    </div>
+  </div>
+  <div class="p-2 mt-3">
+    <p class="text-md font-semibold text-base-content/50">Response on success</p>
+    <pre>
+      <code class="language-json hljs">{"error": "ok", "message": "n"}</code>
+    </pre>
+  </div>
+  <div class="p-2 mt-3">
+    <p class="text-md font-semibold text-base-content/50">Response on failure</p>
+    <pre>
+      <code class="language-json hljs">{"error": "404", "message": "There was a JSON error. Try again later"}</code>
+    </pre>
+  </div>
+</div>
+
+<div class="bg-base-300 shadow w-10/12 md:w-8/12 mt-3 pb-3 pt-3 mx-auto border-b border-accent">
+  <p class="text-md font-medium pl-6 capitalize" id="g4-5">Get difficulty</p>
+</div>
+<div class="bg-base-300 mx-auto text-sm font-medium shadow sm:rounded-lg w-10/12 md:w-8/12 mt-1 p-2 text-base-content/75">
+  <div class="p-2 mt-2">
+    <p class="mt-3 text-md font-semibold text-base-content/50">ENDPOINT <span class="badge badge-sm badge-accent ml-4">GET</span></p>
+    <pre>
+      <code class="language-curl hljs">/api/lastdifficulty</code>
+    </pre>
+  </div>
+  <div class="p-2">
+    <p class="mt-3 text-md font-semibold text-base-content/50">DESCRIPTION</p>
+    <p class="mt-3">
+      Last solved block's difficulty.
+    </p>
+    <div class="mt-3 break-words">
+      <a href="https://cyberyen.work/api/lastdifficulty">https://cyberyen.work/api/lastdifficulty</a>
+    </div>
+  </div>
+  <div class="p-2 mt-3">
+    <p class="text-md font-semibold text-base-content/50">Response on success</p>
+    <pre>
+      <code class="language-json hljs">{"error": "ok", "message": "n"}</code>
+    </pre>
+  </div>
+  <div class="p-2 mt-3">
+    <p class="text-md font-semibold text-base-content/50">Response on failure</p>
+    <pre>
+      <code class="language-json hljs">{"error": "404", "message": "There was a JSON error. Try again later"}</code>
+    </pre>
+  </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+{{ super() }}
+<!-- Include any footer content here -->
+<div style=" height: 25vh"></div>
+{% endblock %}

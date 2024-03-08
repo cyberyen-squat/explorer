@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /address/
+Disallow: /api/
+Disallow: /block/
+Disallow: /tx/

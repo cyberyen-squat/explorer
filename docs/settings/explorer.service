@@ -1,0 +1,13 @@
+[Unit]
+Description=Explorer
+After=network.target
+
+[Service]
+User=<user>
+Group=<group>
+WorkingDirectory=/home/<user>/explorer/app
+ExecStart=/home/<user>/.local/bin/poetry run gunicorn -w 4 app:application -b :5000
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

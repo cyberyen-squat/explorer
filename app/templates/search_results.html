@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Search{{ super() }}{% endblock %}
+
+{% block head %}{{ super() }}{% endblock %}
+
+{% block additional_text %}Search{% endblock %}
+
+{% block the_form %}{% endblock %}
+
+{% block start_body %}{{ super() }}{% endblock %}
+
+{% block additional_body %}
+<h1>Search Results</h1>
+<ul>
+  {% if searched_addresses %}
+  <h3>Addresses</h3>
+  {% for the_address in searched_addresses %}
+  <li><a href="/addresses/{{ the_address.address }}">{{ the_address.address }}</a></li>
+  {% endfor %}
+  {% endif %}
+
+  {% if searched_blocks %}
+  <h3>Blocks</h3>
+  {% for the_block in searched_blocks|sort(attribute='height', reverse=True) %}
+  <li><a href="/block/{{ the_block.hash }}">{{ the_block.height }}</a></li>
+  {% endfor %}
+  {% endif %}
+
+  {% if searched_txs %}
+  <h3>TXs</h3>
+  {% for the_tx in searched_txs|sort(attribute='block_height', reverse=True) %}
+  <li><a href="/tx/{{ the_tx.txid }}">{{ the_tx.txid }}</a></li>
+  {% endfor %}
+  {% endif %}
+</ul>
+{% endblock %}
+
+{% block footer %}{{ super() }}{% endblock %}

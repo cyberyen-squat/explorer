@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}Index{{ super() }}{% endblock %}
+
+{% block head %}
+{{ super() }}
+<!-- Include any additional CSS or script imports if necessary -->
+{% endblock %}
+
+{% block the_form %}
+{{ super() }}
+<!-- Include any form elements if necessary -->
+{% endblock %}
+
+{% block start_body %}
+{{ super() }}
+<!-- Add any introductory content or elements here -->
+{% endblock %}
+
+{% block additional_body %}
+<p class="text-center">
+  [<a href="/api/">API</a>]
+</p>
+<div class="grid grid-cols-12 mt-9">
+  <div class="col-start-2 col-span-4 hidden md:block">
+    <div class="text-center">
+      <h1 class="text-lg font-medium text-base-content/50">Latest Transactions</h1>
+    </div>
+    <div class="mt-1 flex flex-col">
+      <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+	<div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+	  <table class="min-w-full text-center" id="new_tx">
+	    <thead>
+	      <tr>
+		<th scope="col" class="py-3.5 pl-3 text-sm font-medium text-base-content/50 pl-6 text-left">
+		  TxID
+		</th>
+	      </tr>
+	    </thead>
+	    <tbody class="">
+	      <!-- Data will be dynamically inserted by JavaScript -->
+	    </tbody>
+	  </table>
+	</div>
+      </div>
+    </div>
+  </div>
+  <div class="md:col-start-6 md:col-span-6 md:px-0 col-span-12 px-2">
+    <div class="text-center">
+      <h1 class="text-lg font-medium text-base-content/50">Latest Blocks</h1>
+    </div>
+    <div class="mt-1 flex flex-col">
+      <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+	<div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+	  <div id="table-section"></div>
+	</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/index.js') }}"></script>
+{% endblock %}
+
+{% block footer %}
+{{ super() }}
+<!-- Include any footer content here -->
+<div style=" height: 25vh"></div>
+{% endblock %}
